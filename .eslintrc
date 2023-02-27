@@ -1,0 +1,81 @@
+{
+  "extends": ["airbnb", "airbnb/hooks", "eslint:recommended",
+  "plugin:react/recommended",
+  "plugin:react-hooks/recommended",
+  "plugin:@typescript-eslint/eslint-recommended",
+  "plugin:@typescript-eslint/recommended",
+  "plugin:import/errors",
+  "plugin:import/warnings",
+  "plugin:import/typescript",
+  "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2019,
+    "project": "tsconfig.json",
+    "sourceType": "module"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "src"
+      }
+    }
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "import",
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "react/function-component-definition": [2, {
+      "namedComponents": "arrow-function"
+    }],
+    "react/react-in-jsx-scope": "off",
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
+    "no-shadow": "off",
+    "react/require-default": "off",
+    "react/require-default-props": "off",
+    "react/no-unescaped-entities": "off",
+    "@typescript-eslint/no-shadow": "warn",
+    "no-duplicate-imports": "off",
+    "@typescript-eslint/no-duplicate-imports": "error",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+   ],
+    "import/order": [
+      "error",
+      {
+        "groups": [["internal", "external"], "sibling"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/default": "off",
+    "import/namespace": [
+      "error",
+      {
+        "allowComputed": true
+      }
+    ]
+  }
+}
