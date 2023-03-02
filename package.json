@@ -8,7 +8,10 @@
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx --ignore-pattern node_modules/",
-    "start-json-server": "yarn json-server json-server/db.json  -p 3001"
+    "start-json-server": "yarn json-server json-server/db.json  -p 3001",
+    "typecheck": "yarn tsc -p ./tsconfig.json --noemit",
+    "lint-fix": "npx eslint ./src/**/* --ext .js,.jsx,.ts,.tsx --fix",
+    "dev": "yarn concurrently --kill-others \"yarn start\" \"yarn start-json-server\""
   },
   "devDependencies": {
     "@types/node": "18.14.0",
@@ -18,6 +21,7 @@
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
     "clean-webpack-plugin": "4.0.0",
+    "concurrently": "^7.6.0",
     "copy-webpack-plugin": "11.0.0",
     "css-loader": "6.7.3",
     "cssnano": "5.1.15",
