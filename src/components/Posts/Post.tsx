@@ -4,7 +4,6 @@ import {
   DeleteTwoTone,
 } from '@ant-design/icons';
 import { Card, Image, Space } from 'antd';
-
 import { Link } from 'react-router-dom';
 import { useDeletePost } from '../../hooks/useDeletePost';
 import { useUpdatePost } from '../../hooks/useUpdatePost';
@@ -16,26 +15,30 @@ type TPostProps = { post: TPost };
 export const Post = ({ post }: TPostProps) => {
   const { mutate: update } = useUpdatePost();
 
-  const { mutate: deleteCurrentPost } = useDeletePost(post.id);
+  const { mutate: deleteCurrentPost } = useDeletePost();
 
   const handleClickFavorite = () => {
     update({
+      ...post,
       isFavorite: !post.isFavorite,
     });
   };
 
   const handleClickPublished = () => {
     update({
+      ...post,
       isPublished: !post.isPublished,
     });
   };
+
+  const handleDelete = () => deleteCurrentPost(post.id);
 
   return (
     <Card
       style={{ width: 300 }}
       extra={<Link to={`post/${post.id}`}>More</Link>}
       title={post.title}
-      cover={<Image src={post.previewImage} />}
+      cover={post.previewImage ? <Image src={post.previewImage} /> : undefined}
       actions={[
         <HeartTwoTone
           onClick={handleClickFavorite}
@@ -47,20 +50,22 @@ export const Post = ({ post }: TPostProps) => {
           twoToneColor={post.isPublished ? '#52c41a' : ''}
           key="published"
         />,
-        <DeleteTwoTone key="delete" onClick={() => deleteCurrentPost()} />,
+        <DeleteTwoTone key="delete" onClick={handleDelete} />,
       ]}
     >
-      <Space direction="vertical">
-        <Meta
-          description={
-            <div
-              dangerouslySetInnerHTML={{
-                __html: post.description.slice(0, 40),
-              }}
-            />
-          }
-        />
-      </Space>
+      {!!post.description && (
+        <Space direction="vertical">
+          <Meta
+            description={
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: post.description.slice(0, 40),
+                }}
+              />
+            }
+          />
+        </Space>
+      )}
     </Card>
   );
-}
+};

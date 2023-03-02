@@ -12,7 +12,7 @@ export const PostPage = () => {
 
   const { data } = usePostById(Number(id));
 
-  const { mutate: deleteCurrentPost } = useDeletePost(Number(id), () => {
+  const { mutate: deleteCurrentPost } = useDeletePost(() => {
     notification.success({
       message: 'Your post is deleted successfully 👌',
     });
@@ -21,17 +21,20 @@ export const PostPage = () => {
 
   if (!data) return <Empty />;
 
+  const handleDeletePost = () => deleteCurrentPost(Number(id));
+  const handleEditPost = () => navigate(`/edit/${data.id}`);
+
   return (
     <Space direction="vertical" color="#f5f5f5">
       <Space direction="horizontal" size="middle">
         <Title>{data.title}</Title>
-        <Button onClick={() => navigate(`/edit/${data.id}`)}>
+        <Button onClick={handleEditPost}>
           <EditOutlined />
           Edit post
         </Button>
         <DeleteTwoTone
           key="delete"
-          onClick={() => deleteCurrentPost()}
+          onClick={handleDeletePost}
           twoToneColor="#cf1322"
         />
       </Space>
@@ -48,4 +51,4 @@ export const PostPage = () => {
       )}
     </Space>
   );
-}
+};
